@@ -7,10 +7,15 @@ var DEG2RAD = Math.PI / 180;
 var width, height, renderer, scene, camera;
 var clock = new THREE.Clock;
 var rotY = 0, rotX = 0;
-var matWood = new THREE.MeshLambertMaterial({ color: 0x826841 });
+var matWood = new THREE.MeshLambertMaterial({ color: 0x826841 ,transparent:true});
 //var matWood = new THREE.MeshLambertMaterial({ color: 0x826841, transparent: true, opacity: 0.5 }); //For testing the mesh alignment
-var matStone = new THREE.MeshLambertMaterial({ color: 0xadadad });
-var matTransparentStone = new THREE.MeshLambertMaterial({ color: 0xadadad });
+var matStone = new THREE.MeshLambertMaterial({ color: 0xadadad ,transparent:true});
+var matTransparentStone = new THREE.MeshLambertMaterial({ color: 0xadadad ,transparent:true});
+
+
+
+
+
 matTransparentStone.opacity = 0.8;
 matTransparentStone.transparent = true;
 var viewCenter = new THREE.Vector3(0,0,0);
@@ -207,6 +212,9 @@ function loadScreen() {
 	};
 };
 
+function getTexture(){
+}
+
 function setup(){
 	width = $("#gl").width();
 	height = $("#gl").height();
@@ -306,13 +314,28 @@ function setup(){
 	armorstand.add(mBody);
 
 	//Head (neck and skull)
+	let materials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/helmet/helmet" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		materials.push(material);
+	}
+		
+	/*
+	let geometry = new THREE.BoxGeometry(1,1,1);
+	let cube = new THREE.Mesh(geometry, materials);
+	armorstand.add(cube);
+	*/
+	
+	
 	var mmNeck = new THREE.Mesh(
 		new THREE.BoxGeometry(2/16, 7/16, 2/16),
 		matWood);
 	mmNeck.position.set(0,3.5/16,0);
 	mSkull = new THREE.Mesh(
 		new THREE.BoxGeometry(10/16, 10/16, 10/16),
-		matTransparentStone);
+		materials);
 	mSkull.position.set(0,5/16,0);
 	mHead = new THREE.Object3D();
 	mHead.position.set(0,22/16,0); //Pivot Point
