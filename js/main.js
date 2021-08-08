@@ -249,6 +249,18 @@ function setup(){
 	// and add it as a child to the object that serves as a pivot.
 
 	//Left Leg
+	let LeftLegSkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/leftLeg/leftLeg" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		LeftLegSkinMaterials.push(material);
+	}
+	mLeftLegSkin = new THREE.Mesh(
+		new THREE.BoxGeometry(4/16, 6/16, 4/16),
+		LeftLegSkinMaterials);
+	mLeftLegSkin.position.set(0,-8.5/16,0);
+	
 	var mmLegLeft = new THREE.Mesh(
 		new THREE.BoxGeometry(2/16, 11/16, 2/16),
 		matWood);
@@ -256,9 +268,22 @@ function setup(){
 	mLegLeft = new THREE.Object3D();
 	mLegLeft.position.set(2/16,11/16,0); //Pivot Point
 	mLegLeft.add(mmLegLeft);
+	mLegLeft.add(mLeftLegSkin);
 	armorstand.add(mLegLeft);
 
 	//Right Leg
+	let RightLegSkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/rightLeg/rightLeg" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		RightLegSkinMaterials.push(material);
+	}
+	mRightLegSkin = new THREE.Mesh(
+		new THREE.BoxGeometry(4/16, 6/16, 4/16),
+		RightLegSkinMaterials);
+	mRightLegSkin.position.set(0,-8.5/16,0);
+	
 	var mmLegRight = new THREE.Mesh(
 		new THREE.BoxGeometry(2/16, 11/16, 2/16),
 		matWood);
@@ -266,6 +291,7 @@ function setup(){
 	mLegRight = new THREE.Object3D();
 	mLegRight.position.set(-2/16,11/16,0); //Pivot Point
 	mLegRight.add(mmLegRight);
+	mLegRight.add(mRightLegSkin);
 	armorstand.add(mLegRight);
 
 	//Left Arm
@@ -289,6 +315,19 @@ function setup(){
 	armorstand.add(mArmRight);
 
 	//Body (consists of four parts)
+	let BodySkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/chestplate/chestplate" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		BodySkinMaterials.push(material);
+	}
+	mBodySkin = new THREE.Mesh(
+		new THREE.BoxGeometry(13/16, 14/16, 4/16),
+		BodySkinMaterials);
+	mBodySkin.position.set(0,-6/16,0);
+	
+	
 	var mmHip = new THREE.Mesh(
 		new THREE.BoxGeometry(8/16, 2/16, 2/16),
 		matWood);
@@ -311,22 +350,17 @@ function setup(){
 	mBody.add(mmBodyLeft);
 	mBody.add(mmBodyRight);
 	mBody.add(mmShoulders);
+	mBody.add(mBodySkin);
 	armorstand.add(mBody);
 
 	//Head (neck and skull)
-	let materials = [];
+	let HeadSkinMaterials = [];
 	for(let i=0; i<6; i++){
 		let texture = new THREE.TextureLoader().load("./images/helmet/helmet" + i + ".png");
 		texture.magFilter = THREE.NearestFilter;
 		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
-		materials.push(material);
+		HeadSkinMaterials.push(material);
 	}
-		
-	/*
-	let geometry = new THREE.BoxGeometry(1,1,1);
-	let cube = new THREE.Mesh(geometry, materials);
-	armorstand.add(cube);
-	*/
 	
 	
 	var mmNeck = new THREE.Mesh(
@@ -335,7 +369,7 @@ function setup(){
 	mmNeck.position.set(0,3.5/16,0);
 	mSkull = new THREE.Mesh(
 		new THREE.BoxGeometry(10/16, 10/16, 10/16),
-		materials);
+		HeadSkinMaterials);
 	mSkull.position.set(0,5/16,0);
 	mHead = new THREE.Object3D();
 	mHead.position.set(0,22/16,0); //Pivot Point
