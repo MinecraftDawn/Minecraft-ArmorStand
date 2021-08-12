@@ -291,12 +291,30 @@ function setup(){
 	// and add it as a child to the object that serves as a pivot.
 
 	//Left Leg
+
+	let LeftLegSkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/gold/leftLeg" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		LeftLegSkinMaterials.push(material);
+	}
 	mmLeftLegSkin = new THREE.Mesh(
-		new THREE.BoxGeometry(3.5/16, 8/16, 3.5/16));
+		new THREE.BoxGeometry(3.5/16, 8/16, 3.5/16),
+		LeftLegSkinMaterials);
 	mmLeftLegSkin.position.set(0,-4/16,0);
 	
+	
+	let LeftBootSkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/gold/leftBoot" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		LeftBootSkinMaterials.push(material);
+	}
 	mmLeftBootSkin = new THREE.Mesh(
-		new THREE.BoxGeometry(4/16, 6/16, 4/16));
+		new THREE.BoxGeometry(4/16, 6/16, 4/16),
+		LeftBootSkinMaterials);
 	mmLeftBootSkin.position.set(0,-8.5/16,0);
 	
 	var mmLegLeft = new THREE.Mesh(
@@ -311,13 +329,29 @@ function setup(){
 	armorstand.add(mLegLeft);
 
 	//Right Leg
+	let RightLegSkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/rightLeg/rightLeg" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		RightLegSkinMaterials.push(material);
+	}
 	mmRightLegSkin = new THREE.Mesh(
-		new THREE.BoxGeometry(3.5/16, 8/16, 3.5/16));
+		new THREE.BoxGeometry(3.5/16, 8/16, 3.5/16),
+		RightLegSkinMaterials);
 	mmRightLegSkin.position.set(0,-4/16,0);
 	
-
+	
+	let RightBootSkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/rightLeg/rightBoot" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		RightBootSkinMaterials.push(material);
+	}
 	mmRightBootSkin = new THREE.Mesh(
-		new THREE.BoxGeometry(4/16, 6/16, 4/16));
+		new THREE.BoxGeometry(4/16, 6/16, 4/16),
+		RightBootSkinMaterials);
 	mmRightBootSkin.position.set(0,-8.5/16,0);
 	
 	var mmLegRight = new THREE.Mesh(
@@ -332,9 +366,19 @@ function setup(){
 	armorstand.add(mLegRight);
 
 	//Left Arm
+	let LeftArmSkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/leftArm/leftArm" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		LeftArmSkinMaterials.push(material);
+	}
 	mmLeftArmSkin = new THREE.Mesh(
-		new THREE.BoxGeometry(5.5/16, 5.5/16, 5.5/16));
-	mmLeftArmSkin.position.set(1/16,-0/16,0);	
+		new THREE.BoxGeometry(5.5/16, 5.5/16, 5.5/16),
+		LeftArmSkinMaterials);
+	mmLeftArmSkin.position.set(1/16,-0/16,0);
+	
+	
 	
 	mmArmLeft = new THREE.Mesh(
 		new THREE.BoxGeometry(2/16, 12/16, 2/16),
@@ -347,8 +391,16 @@ function setup(){
 	armorstand.add(mArmLeft);
 
 	//Right Arm
+	let RightArmSkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/rightArm/rightArm" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		RightArmSkinMaterials.push(material);
+	}
 	mmRightArmSkin = new THREE.Mesh(
-		new THREE.BoxGeometry(5.5/16, 5.5/16, 5.5/16));
+		new THREE.BoxGeometry(5.5/16, 5.5/16, 5.5/16),
+		RightArmSkinMaterials);
 	mmRightArmSkin.position.set(-1/16,-0/16,0);
 	
 	
@@ -363,12 +415,28 @@ function setup(){
 	armorstand.add(mArmRight);
 
 	//Body (consists of four parts)
+	let BodySkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/body/chestplate" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		BodySkinMaterials.push(material);
+	}
 	mmBodySkin = new THREE.Mesh(
-		new THREE.BoxGeometry(13/16, 14/16, 5/16));
+		new THREE.BoxGeometry(13/16, 14/16, 5/16),
+		BodySkinMaterials);
 	mmBodySkin.position.set(0,-6/16,0);
 	
+	let WaistSkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/body/waist" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		WaistSkinMaterials.push(material);
+	}
 	mmWaistSkin = new THREE.Mesh(
-		new THREE.BoxGeometry(9/16, 6/16, 3/16));
+		new THREE.BoxGeometry(9/16, 6/16, 3/16),
+		WaistSkinMaterials);
 	mmWaistSkin.position.set(0,-10/16,0);
 	
 	
@@ -399,13 +467,22 @@ function setup(){
 	armorstand.add(mBody);
 
 	//Head (neck and skull)
+	let HeadSkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/helmet/helmet" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		HeadSkinMaterials.push(material);
+	}
+	
 	
 	var mmNeck = new THREE.Mesh(
 		new THREE.BoxGeometry(2/16, 7/16, 2/16),
 		matWood);
 	mmNeck.position.set(0,3.5/16,0);
 	mSkull = new THREE.Mesh(
-		new THREE.BoxGeometry(10/16, 10/16, 10/16));
+		new THREE.BoxGeometry(10/16, 10/16, 10/16),
+		HeadSkinMaterials);
 	mSkull.position.set(0,5/16,0);
 	mHead = new THREE.Object3D();
 	mHead.position.set(0,22/16,0); //Pivot Point
@@ -632,46 +709,30 @@ function updateUI(){
 	mmRightArmSkin.visible = equipChestplate != "";
 	mmWaistSkin.visible = equipLeggings != "";
 	
-	
 	let material = getMaterial(equipHelmet);
 	if (materials[material] != null){
 		mSkull.material = materials[material]["helmets"];
 	}else{
-		mSkull.visible = false;
+		//mSkull.visible = false;
 	}
 	
 	material = getMaterial(equipChestplate);
 	if (materials[material] != null){
+		mmWaistSkin.material = materials[material]["waist"];
 		mmBodySkin.material = materials[material]["chestplates"];
 		mmLeftArmSkin.material = materials[material]["leftArms"];
 		mmRightArmSkin.material = materials[material]["rightArms"];
 	}else{
+		/*
+		mmWaistSkin.visible = false;
 		mmBodySkin.visible = false;
 		mmLeftArmSkin.visible = false;
 		mmRightArmSkin.visible = false;
+		*/
 	}
 	
-	material = getMaterial(equipLeggings);
-	if (materials[material] != null){
-		mmLeftLegSkin.material = materials[material]["leftLegs"];
-		mmRightLegSkin.material = materials[material]["rightLegs"];
-		mmWaistSkin.material = materials[material]["waists"];
-	}else{
-		mmLeftLegSkin.visible = false;
-		mmRightLegSkin.visible = false;
-		mmWaistSkin.visible = false;
-	}
-	
-	material = getMaterial(equipShoes);
-	if (materials[material] != null){
-		mmLeftBootSkin.material = materials[material]["leftBoots"];
-		mmRightBootSkin.material = materials[material]["rightBoots"];
-	}else{
-		mmLeftBootSkin.visible = false;
-		mmRightBootSkin.visible = false;
-	}
-	
-	
+	equipLeggings
+	equipShoes
 }
 
 function generateCode(){
