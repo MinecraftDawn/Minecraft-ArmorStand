@@ -194,6 +194,8 @@ $(document).ready(function(){
 	$("#customequipment").hide();
 	$("#disabledslots").hide();
 	$("#namecustomization").hide();
+	$("#infomation").hide();
+	
 	
 	//Show elements
 	$("#namecustomization").show();
@@ -808,6 +810,7 @@ function generateCode(){
 				tags.push(`CustomName:'{${name.join("")}}'`);
 				break;
 		}
+
 	}
 		
 	if(showCustomName)

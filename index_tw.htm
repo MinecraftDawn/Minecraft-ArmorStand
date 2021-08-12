@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MINECRAFT 盔甲座工具</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Create poses for Minecraft armor stands in a breeze! Free, fast, open source.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="js/colpick.css">
+    <link rel="icon" type="image/png" href="images/icon.png">
+
+    <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <script src="js/colpick.js"></script>
+    <script src="js/main.js"></script>
+
+    <div id="gl"></div>
+
+    <div class="right card">
+
+        <div class="padding underline">
+            <h1>MINECRAFT 盔甲座工具</h1>
+            <center>
+                <a href="https://github.com/MinecraftDawn/Minecraft-ArmorStand" target="_blank"><img src="images/github.png" alt="GitHub" title="GitHub" /></a>
+                <a href="https://www.codingspace.school/" target="_blank"><img src="images/favicon.ico" width=64 height=64 alt="CodingSpace" title="CodingSpace" /></a>
+            </center>
+        </div>
+
+        <div class="padding underline">
+            <select id="mcversion">
+				<option value="1.16">Minecraft 1.16 以上</option>
+				<option value="1.14">Minecraft 1.14 &amp; 1.15</option>
+				<option value="1.13">Minecraft 1.13</option>
+                <option value="1.11">Minecraft 1.11 &amp; 1.12</option>
+                <option value="1.9">Minecraft 1.9 &amp; 1.10</option>
+                <option value="1.8">Minecraft 1.8</option>
+            </select>
+        </div>
+
+        <div class="padding underline">
+            <label><input type="checkbox" name="invisible">隱形</label><br>
+            <label><input type="checkbox" name="invulnerable">無敵</label><br>
+            <label><input type="checkbox" name="persistencerequired">PersistenceRequired</label><br>
+            <label><input type="checkbox" name="nobaseplate">隱藏基座</label><br>
+            <label><input type="checkbox" name="nogravity">不受重力影響</label><br>
+            <label><input type="checkbox" name="showarms">顯示手臂</label><br>
+            <label><input type="checkbox" name="small">縮小版本</label><br>
+            <label><input type="checkbox" name="marker">縮小碰撞範圍</label><br>
+			<div id="centercorrected">
+				<label><input type="checkbox" id="center-corrected" name="center-corrected">置中</label><br>
+			</div>
+        </div>
+
+        <div class="padding underline">
+            <table class="rotations">
+                <tr>
+                    <td>旋轉角度:</td>
+                    <td colspan="3"><input type="range" name="rotation" min="0" max="360" value="0"></td>
+                </tr>
+                <tr>
+                    <td>頭部:</td>
+                    <td><input type="range" name="headX" min="0" max="360" value="0"></td>
+                    <td><input type="range" name="headY" min="0" max="360" value="0"></td>
+                    <td><input type="range" name="headZ" min="0" max="360" value="0"></td>
+                </tr>
+                <tr>
+                    <td>身體:</td>
+                    <td><input type="range" name="bodyX" min="0" max="360" value="0"></td>
+                    <td><input type="range" name="bodyY" min="0" max="360" value="0"></td>
+                    <td><input type="range" name="bodyZ" min="0" max="360" value="0"></td>
+                </tr>
+                <tr>
+                    <td>左腳:</td>
+                    <td><input type="range" name="leftLegX" min="0" max="360" value="0"></td>
+                    <td><input type="range" name="leftLegY" min="0" max="360" value="0"></td>
+                    <td><input type="range" name="leftLegZ" min="0" max="360" value="0"></td>
+                </tr>
+                <tr>
+                    <td>右腳:</td>
+                    <td><input type="range" name="rightLegX" min="0" max="360" value="0"></td>
+                    <td><input type="range" name="rightLegY" min="0" max="360" value="0"></td>
+                    <td><input type="range" name="rightLegZ" min="0" max="360" value="0"></td>
+                </tr>
+            </table>
+            <div id="inputarms">
+                <table class="rotations">
+                        <tr>
+                            <td>左手:</td>
+                            <td><input type="range" name="leftArmX" min="0" max="360" value="0"></td>
+                            <td><input type="range" name="leftArmY" min="0" max="360" value="0"></td>
+                            <td><input type="range" name="leftArmZ" min="0" max="360" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>右手:</td>
+                            <td><input type="range" name="rightArmX" min="0" max="360" value="0"></td>
+                            <td><input type="range" name="rightArmY" min="0" max="360" value="0"></td>
+                            <td><input type="range" name="rightArmZ" min="0" max="360" value="0"></td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="padding underline">
+            <label><input type="checkbox" name="useequipment" checked>開啟裝備欄</label><br>
+            <div id="customequipment">
+                <p>
+                    在相對應欄位中輸入正確的物品的ID(如： <i>stone</i> 或 <i>iron_sword</i>)。 可以在頭部或手部輸入任何物品，但其他欄位就需要是正確且對應的物品。
+                </p>
+
+                <input type="text" class="equipment" name="equipHandRight" placeholder="右手物品">
+                <input type="text" class="equipment" id="equipHandLeft" name="equipHandLeft" placeholder="左手物品">
+
+                <input type="text" class="equipment" name="equipShoes" placeholder="靴子(鞋子)" list="list-shoes">
+                <datalist id="list-shoes">
+                    <option value="chainmail_boots">
+                    <option value="diamond_boots">
+                    <option value="golden_boots">
+                    <option value="netherite_boots">
+                    <option value="iron_boots">
+                    <option value="leather_boots">
+                </datalist>
+                <div class="colorfield" id="shoecolor"></div>
+
+                <input type="text" class="equipment" name="equipLeggings" placeholder="腿甲(褲子)" list="list-leggings">
+                <datalist id="list-leggings">
+                    <option value="chainmail_leggings">
+                    <option value="diamond_leggings">
+                    <option value="golden_leggings">
+                    <option value="netherite_leggings">
+                    <option value="iron_leggings">
+                    <option value="leather_leggings">
+                </datalist>
+                <div class="colorfield" id="leggingscolor"></div>
+
+                <input type="text" class="equipment" name="equipChestplate" placeholder="胸甲(衣服)" list="list-chestplate">
+                <datalist id="list-chestplate">
+                    <option value="chainmail_chestplate">
+                    <option value="diamond_chestplate">
+                    <option value="golden_chestplate">
+                    <option value="netherite_chestplate">
+                    <option value="iron_chestplate">
+                    <option value="leather_chestplate">
+                </datalist>
+                <div class="colorfield" id="chestplatecolor"></div>
+
+                <input type="text" class="equipment" name="equipHelmet" placeholder="頭盔(帽子)" list="list-helmet">
+                <datalist id="list-helmet">
+                    <option value="turtle_helmet">
+                    <option value="chainmail_helmet">
+                    <option value="diamond_helmet">
+                    <option value="golden_helmet">
+                    <option value="netherite_helmet">
+                    <option value="iron_helmet">
+                    <option value="leather_helmet">
+                </datalist>
+                <div class="colorfield" id="helmetcolor"></div>
+
+                <br>特殊頭盔
+                <select id="equipCustomHeadMode">
+                    <option value="item">物品名稱</option>
+                    <option value="player">玩家名稱</option>
+                    <option value="url">Skin圖片連結</option>
+                    <option value="givecode">Give指令</option>
+                </select>
+
+                <div id="minecraft-heads">
+                    <br>
+                    你可以在這裡找到很多特殊的頭顱. 選定一個頭路後，複製 <i>Give-Code</i> 並且貼上到頭盔欄位上。
+                    <br>
+					<b>以下連結並非本網站所有，且有廣告，請注意點選</b>
+					<br>
+					
+                    <a href="http://minecraft-heads.com/" target="_blank"><img src="images/mc-heads.png" alt="minecraft-heads.com" /></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="padding underline">
+            <input type="text" name="customname" id="customname" placeholder="自定義名稱">
+            <label><input type="checkbox" name="showcustomname">顯示自定義名稱</label><br>
+			<div id="namecustomization">
+				<p>
+					版本大於1.13，你可以在名稱中添加顏色格式
+				</p>
+				<input type="text" name="namecolor" id="namecolor" placeholder="顏色名稱" list="list-colors">
+				<datalist id="list-colors">
+					<option value="aqua">天藍色</option>
+					<option value="black">黑色</option>
+					<option value="blue">藍色</option>
+					<option value="dark_aqua">湖藍色</option>
+					<option value="dark_blue">深藍色</option>
+					<option value="dark_gray">深灰色</option>
+					<option value="dark_green">深綠色</option>
+					<option value="dark_purple">紫色</option>
+					<option value="dark_red">深紅色</option>
+					<option value="gold">金色</option>
+					<option value="gray">灰色</option>
+					<option value="green">綠色</option>
+					<option value="light_purple">粉紅色</option>
+					<option value="red">紅色</option>
+					<option value="white">白色</option>
+					<option value="yellow">黃色</option>
+				</datalist>
+				<div>
+					<label><input type="checkbox" id="namebold" name="namebold"><b>粗體</b></label>
+					<label><input type="checkbox" id="nameitalic" name="nameitalic"><i>斜體</i></label>
+					<label><input type="checkbox" id="nameobfuscated" name="nameobfuscated">亂碼</label>
+					<label><input type="checkbox" id="namestrikethrough" name="namestrikethrough"><s>刪除線</s></label>
+				</div>
+			</div>
+        </div>
+
+        <div class="padding">
+            <!-- THANK YOU to reddit user Oozebull for this part. -->
+            <label><input type="checkbox" id="slashgive" name="slashgive">使用Give給予</label>
+            <label><input type="checkbox" name="usedisabledslots">鎖定裝備欄</label>
+            <div id="disabledslots">
+                <div>
+                    <span class="first">&nbsp;</span>
+                    <span class="sprite" style="background-position: 0px   0px"></span>
+                    <span class="sprite" style="background-position: 0px -16px"></span>
+                    <span class="sprite" style="background-position: 0px -32px"></span>
+                    <span class="sprite" style="background-position: 0px -48px"></span>
+                    <span class="sprite" style="background-position: 0px -64px"></span>
+                    <span class="sprite offhand" style="background-position: 0px -80px"></span>
+                </div>
+
+                <div>
+                    <span class="first">無法移除</span>
+                    <span><input id="dH" type="checkbox"></input></span>
+                    <span><input id="dC" type="checkbox"></input></span>
+                    <span><input id="dL" type="checkbox"></input></span>
+                    <span><input id="dB" type="checkbox"></input></span>
+                    <span><input id="dW" type="checkbox"></input></span>
+                    <span><input id="dO" type="checkbox"></input></span>
+                </div>
+                <div>
+                    <span class="first">j無法替換</span>
+                    <span><input id="rH" type="checkbox"></input></span>
+                    <span><input id="rC" type="checkbox"></input></span>
+                    <span><input id="rL" type="checkbox"></input></span>
+                    <span><input id="rB" type="checkbox"></input></span>
+                    <span><input id="rW" type="checkbox"></input></span>
+                    <span><input id="rO" type="checkbox"></input></span>
+                </div>
+                <div>
+                    <span class="first">無法放置</span>
+                    <span><input id="pH" type="checkbox"></input></span>
+                    <span><input id="pC" type="checkbox"></input></span>
+                    <span><input id="pL" type="checkbox"></input></span>
+                    <span><input id="pB" type="checkbox"></input></span>
+                    <span><input id="pW" type="checkbox"></input></span>
+                    <span><input id="pO" type="checkbox"></input></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code">
+            <div id="code-copy-hint">點擊複製</div>
+            <div id="code"></div>
+        </div>
+        <div id="codeinfo" class="padding">
+            <b>注意！</b>
+            這指令太長了，無法直接執行，請使用指令方塊執行. (往下看可以拿到指令方塊)
+        </div>
+
+    </div>
+
+    <div class="right card">
+        <span style="cursor: pointer;" onclick="javascript:$('#saveandload').slideToggle();">
+            + 儲存與讀取
+        </span>	
+        <div id="saveandload">
+            <div class="padding">
+                <div id="save" class="padding underline">
+                    <p>
+                        儲存目前的盔甲座設定
+                    </p>
+                    <input type="text" name="creationname" id="creationname" placeholder="盔甲座"/>
+                    <button style="display:inline-block" id="savecreation" onclick="javascript:saveData();">儲存</button><br>
+                </div>
+                <div id="load" class="padding underline">
+                    <p id="loadmessage">
+                        讀取你的盔甲座設定
+                    </p>
+                    <div id="loadlistopts">
+                        <select id="loadlist"></select>
+                        <button id="loadcreation" style="display:inline-block;" onclick="javascript:loadData($(`#loadlist`).val());">讀取</button>
+                        <button id="deletesave" style="display:inline-block;" onclick="javascript:deleteSave($(`#loadlist`).val());">刪除</button><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right card">
+        <span style="cursor: pointer;" onclick="javascript:$('#getcommandblock').slideToggle();">
+            + 取得指令方塊
+        </span>	
+        <br>
+        <div id="getcommandblock">
+            <div class="padding">
+                如果指令超過256個字元 (1.11之前為100個字元)， 需要使用 <b><i>指令方塊</i></b> 來執行。 使用以下指令可以取得指令方塊：
+            </div>
+            <div class="code">
+                /give @p minecraft:command_block
+            </div>
+        </div>
+    </div>
+
+    <div class="right card">
+        <span class="" style="cursor: pointer;" onclick="javascript:$('#troubleshooting').slideToggle();">
+        + 故障排除
+        </span>
+        <div id="troubleshooting">
+            <p>
+                <b>此專案使用WebGL開發</b>
+                如果你在左邊沒看到任何東西，請在瀏覽器中啟用WebGL。 或著點擊 <a href="http://get.webgl.org/">WebGL官方網站</a>來解決此問題。
+            </p>
+        </div>
+    </div>
+	
+	<div class="right card">
+        <span class="" style="cursor: pointer;" onclick="javascript:$('#infomation').slideToggle();">
+        + 其他資訊
+        </span>
+        <div id="infomation">
+            <p>
+                <b></b>
+                原作者：<a href="https://github.com/haselkern">haselkern(Github)</a> <br>
+				修改者：<a href="https://github.com/MinecraftDawn">MinecraftDawn(Github)</a> <br>
+				開源位置： <a href="https://github.com/MinecraftDawn/Minecraft-ArmorStand"> Github </a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
