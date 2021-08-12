@@ -53,9 +53,36 @@ for i in range(len(rightBoots)):
      rightBoot = img[s[0]:s[1],s[2]:s[3]]
      cv.imwrite(f'rightBoot{i}.png', rightBoot)
 
+
+leftArms =[[20,25,40,44],
+           [20,25,48,52],
+           [16,20,44,48],
+           [0,1,0,1],
+           [20,25,52,56],
+           [20,25,44,48]]
+
+for i in range(len(leftArms)):
+     s = leftArms[i]
+     leftArm = img[s[0]:s[1],s[2]:s[3]]
+     cv.imwrite(f'leftArm{i}.png', leftArm)
+'''
+
+rightArms =[[20,25,48,52],
+            [20,25,40,44],
+            [16,20,44,48],
+            [0,1,0,1],
+            [20,25,44,48],
+            [20,25,52,56]]
+
+for i in range(len(rightArms)):
+     s = rightArms[i]
+     rightArm = img[s[0]:s[1],s[2]:s[3]]
+     cv.imwrite(f'rightArm{i}.png', rightArm)
+
+
 '''
 img = cv.imread('diamond_layer_2.png', cv.IMREAD_UNCHANGED)
-'''
+
 leftLegs = [[20,29,8,12],
              [20,29,0,4],
              [16,20,8,12],
@@ -80,7 +107,7 @@ for i in range(len(rightLegs)):
      rightLeg = img[s[0]:s[1],s[2]:s[3]]
      cv.imwrite(f'rightLeg{i}.png', rightLeg)
 
-'''
+
 waists =  [[27,32,16,20],
            [27,32,28,32],
            [0,1,0,1],
@@ -92,8 +119,7 @@ for i in range(len(waists)):
      s = waists[i]
      waist = img[s[0]:s[1],s[2]:s[3]]
      cv.imwrite(f'waist{i}.png', waist)
-
-
+'''
 
 
 

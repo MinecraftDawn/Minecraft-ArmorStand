@@ -14,8 +14,6 @@ var matTransparentStone = new THREE.MeshLambertMaterial({ color: 0xadadad ,trans
 
 
 
-
-
 matTransparentStone.opacity = 0.8;
 matTransparentStone.transparent = true;
 var viewCenter = new THREE.Vector3(0,0,0);
@@ -32,12 +30,17 @@ var mArmLeft; //*
 var mArmRight; //*
 var armorstand, armorstandWrapper; //Group all the other elements
 
-var mLeftLegSkin;
-var mLeftBootSkin;
-var mRightLegSkin;
-var mRightBootSkin;
-var mBodySkin;
-var mWaistSkin;
+var mmArmRight;
+var mmArmLeft;
+
+var mmLeftLegSkin;
+var mmLeftBootSkin;
+var mmRightLegSkin;
+var mmRightBootSkin;
+var mmBodySkin;
+var mmWaistSkin;
+var mmLeftArmSkin;
+var mmRightArmSkin;
 
 
 //DATA -> Stuff that we'll use to generate the command. Fetched from the controls.
@@ -265,10 +268,10 @@ function setup(){
 		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
 		LeftLegSkinMaterials.push(material);
 	}
-	mLeftLegSkin = new THREE.Mesh(
+	mmLeftLegSkin = new THREE.Mesh(
 		new THREE.BoxGeometry(3.5/16, 8/16, 3.5/16),
 		LeftLegSkinMaterials);
-	mLeftLegSkin.position.set(0,-4/16,0);
+	mmLeftLegSkin.position.set(0,-4/16,0);
 	
 	
 	let LeftBootSkinMaterials = [];
@@ -278,10 +281,10 @@ function setup(){
 		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
 		LeftBootSkinMaterials.push(material);
 	}
-	mLeftBootSkin = new THREE.Mesh(
+	mmLeftBootSkin = new THREE.Mesh(
 		new THREE.BoxGeometry(4/16, 6/16, 4/16),
 		LeftBootSkinMaterials);
-	mLeftBootSkin.position.set(0,-8.5/16,0);
+	mmLeftBootSkin.position.set(0,-8.5/16,0);
 	
 	var mmLegLeft = new THREE.Mesh(
 		new THREE.BoxGeometry(2/16, 11/16, 2/16),
@@ -290,8 +293,8 @@ function setup(){
 	mLegLeft = new THREE.Object3D();
 	mLegLeft.position.set(2/16,11/16,0); //Pivot Point
 	mLegLeft.add(mmLegLeft);
-	mLegLeft.add(mLeftLegSkin);
-	mLegLeft.add(mLeftBootSkin);
+	mLegLeft.add(mmLeftLegSkin);
+	mLegLeft.add(mmLeftBootSkin);
 	armorstand.add(mLegLeft);
 
 	//Right Leg
@@ -302,10 +305,10 @@ function setup(){
 		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
 		RightLegSkinMaterials.push(material);
 	}
-	mRightLegSkin = new THREE.Mesh(
+	mmRightLegSkin = new THREE.Mesh(
 		new THREE.BoxGeometry(3.5/16, 8/16, 3.5/16),
 		RightLegSkinMaterials);
-	mRightLegSkin.position.set(0,-4/16,0);
+	mmRightLegSkin.position.set(0,-4/16,0);
 	
 	
 	let RightBootSkinMaterials = [];
@@ -315,10 +318,10 @@ function setup(){
 		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
 		RightBootSkinMaterials.push(material);
 	}
-	mRightBootSkin = new THREE.Mesh(
+	mmRightBootSkin = new THREE.Mesh(
 		new THREE.BoxGeometry(4/16, 6/16, 4/16),
 		RightBootSkinMaterials);
-	mRightBootSkin.position.set(0,-8.5/16,0);
+	mmRightBootSkin.position.set(0,-8.5/16,0);
 	
 	var mmLegRight = new THREE.Mesh(
 		new THREE.BoxGeometry(2/16, 11/16, 2/16),
@@ -327,28 +330,57 @@ function setup(){
 	mLegRight = new THREE.Object3D();
 	mLegRight.position.set(-2/16,11/16,0); //Pivot Point
 	mLegRight.add(mmLegRight);
-	mLegRight.add(mRightLegSkin);
-	mLegRight.add(mRightBootSkin);
+	mLegRight.add(mmRightLegSkin);
+	mLegRight.add(mmRightBootSkin);
 	armorstand.add(mLegRight);
 
 	//Left Arm
-	var mmArmLeft = new THREE.Mesh(
+	let LeftArmSkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/leftArm/leftArm" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		LeftArmSkinMaterials.push(material);
+	}
+	mmLeftArmSkin = new THREE.Mesh(
+		new THREE.BoxGeometry(5.5/16, 5.5/16, 5.5/16),
+		LeftArmSkinMaterials);
+	mmLeftArmSkin.position.set(1/16,-0/16,0);
+	
+	
+	
+	mmArmLeft = new THREE.Mesh(
 		new THREE.BoxGeometry(2/16, 12/16, 2/16),
 		matWood);
 	mmArmLeft.position.set(0,-4/16,0);
 	mArmLeft = new THREE.Object3D();
 	mArmLeft.position.set(6/16,21/16,0); //Pivot Point
 	mArmLeft.add(mmArmLeft);
+	mArmLeft.add(mmLeftArmSkin);
 	armorstand.add(mArmLeft);
 
 	//Right Arm
-	var mmArmRight = new THREE.Mesh(
+	let RightArmSkinMaterials = [];
+	for(let i=0; i<6; i++){
+		let texture = new THREE.TextureLoader().load("./images/rightArm/rightArm" + i + ".png");
+		texture.magFilter = THREE.NearestFilter;
+		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
+		RightArmSkinMaterials.push(material);
+	}
+	mmRightArmSkin = new THREE.Mesh(
+		new THREE.BoxGeometry(5.5/16, 5.5/16, 5.5/16),
+		RightArmSkinMaterials);
+	mmRightArmSkin.position.set(-1/16,-0/16,0);
+	
+	
+	mmArmRight = new THREE.Mesh(
 		new THREE.BoxGeometry(2/16, 12/16, 2/16),
 		matWood);
 	mmArmRight.position.set(0,-4/16,0);
 	mArmRight = new THREE.Object3D();
 	mArmRight.position.set(-6/16,21/16,0); //Pivot Point
 	mArmRight.add(mmArmRight);
+	mArmRight.add(mmRightArmSkin);
 	armorstand.add(mArmRight);
 
 	//Body (consists of four parts)
@@ -359,10 +391,10 @@ function setup(){
 		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
 		BodySkinMaterials.push(material);
 	}
-	mBodySkin = new THREE.Mesh(
-		new THREE.BoxGeometry(13/16, 14/16, 4/16),
+	mmBodySkin = new THREE.Mesh(
+		new THREE.BoxGeometry(13/16, 14/16, 5/16),
 		BodySkinMaterials);
-	mBodySkin.position.set(0,-6/16,0);
+	mmBodySkin.position.set(0,-6/16,0);
 	
 	let WaistSkinMaterials = [];
 	for(let i=0; i<6; i++){
@@ -371,10 +403,10 @@ function setup(){
 		let material = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide, transparent:true});
 		WaistSkinMaterials.push(material);
 	}
-	mWaistSkin = new THREE.Mesh(
+	mmWaistSkin = new THREE.Mesh(
 		new THREE.BoxGeometry(9/16, 6/16, 3/16),
 		WaistSkinMaterials);
-	mWaistSkin.position.set(0,-10/16,0);
+	mmWaistSkin.position.set(0,-10/16,0);
 	
 	
 	var mmHip = new THREE.Mesh(
@@ -399,8 +431,8 @@ function setup(){
 	mBody.add(mmBodyLeft);
 	mBody.add(mmBodyRight);
 	mBody.add(mmShoulders);
-	mBody.add(mBodySkin);
-	mBody.add(mWaistSkin);
+	mBody.add(mmBodySkin);
+	mBody.add(mmWaistSkin);
 	armorstand.add(mBody);
 
 	//Head (neck and skull)
@@ -626,17 +658,19 @@ function updateUI(){
         armorstand.scale.set(1, 1, 1);
 
 	//Set Visibility
-	mArmRight.visible = mArmLeft.visible = showArms;
+	mmArmRight.visible = mmArmLeft.visible = showArms;
 	mBasePlate.visible = !noBasePlate;
 	mSkull.visible = equipHelmet != "";
 	
-	mLeftLegSkin.visible = equipLeggings != "";
-	mLeftBootSkin.visible = equipShoes != "";
-	mRightLegSkin.visible = equipLeggings != "";
-	mRightBootSkin.visible = equipShoes != "";
-	mWaistSkin.visible = equipChestplate != "";
-	mBodySkin.visible = equipChestplate != "";
-	mWaistSkin.visible = equipLeggings != "";
+	mmLeftLegSkin.visible = equipLeggings != "";
+	mmLeftBootSkin.visible = equipShoes != "";
+	mmRightLegSkin.visible = equipLeggings != "";
+	mmRightBootSkin.visible = equipShoes != "";
+	mmWaistSkin.visible = equipChestplate != "";
+	mmBodySkin.visible = equipChestplate != "";
+	mmLeftArmSkin.visible = equipChestplate != "";
+	mmRightArmSkin.visible = equipChestplate != "";
+	mmWaistSkin.visible = equipLeggings != "";
 }
 
 function generateCode(){
