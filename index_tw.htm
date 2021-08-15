@@ -4,32 +4,95 @@
     <title>MINECRAFT 盔甲座工具</title>
     <meta charset="utf-8">
     <meta name="description" content="Create poses for Minecraft armor stands in a breeze! Free, fast, open source.">
-    <link rel="stylesheet" href="style.css">
+
+	<link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="js/colpick.css">
+
     <link rel="icon" type="image/png" href="images/icon.png">
 
     <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-</head>
-<body>
+	<style>
+	@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+		* {
+		  font-family: "Quicksand", Arial, sans-serif;
+		}
+		a,
+		a:hover {
+		  text-decoration: none;
+		}
+	</style>
+
+	<style>
+	  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+	  *{
+		font-family: "Quicksand", Arial, sans-serif;
+		color: #a6b5cd !important;
+	  }
+	  .navbar-custom{
+		background-color: #1b2239;
+	  }
+	  .navbar-custom .navbar-brand,
+	  .navbar-custom .navbar-text {
+		color: #a6b5cd !important;
+	  }
+	  .navbar-custom .navbar-brand:hover,
+	  .navbar-custom .navbar-text:hover {
+		color: white !important;
+	  }
+	  .logo img{
+		height: 60px;
+	  }
+	  .navbar{
+		height: 80px;
+	  }
+	</style>
+
+
     <script src="js/colpick.js"></script>
     <script src="js/main.js"></script>
 
-    <div id="gl"></div>
+</head>
+<body>
+   <nav class="navbar navbar-expand-md navbar-custom fixed-top">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active logo">
+          <a href="https://www.codingspace.school/" target="_blank">
+          <img src="images/logo_colour.webp"></a>
+        </li>
+      </ul>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link navbar-text" href="https://www.codingspace.school/" target="_blank">官網</a>
+        </li>
+        <li class="nav-item">
+          <router-link to="/pixelArt" class="nav-link navbar-text">照片放進Minecraft</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/cmd/skull" class="nav-link navbar-text">指令生成器</router-link>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+    <div id="gl" style="background-color: #33384e"></div>
 
     <div class="right card">
 
-        <div class="padding underline">
-            <h1>MINECRAFT 盔甲座工具</h1>
+        <div class="padding underline" style="background-color: #33384e">
             <center>
                 <a href="https://github.com/MinecraftDawn/Minecraft-ArmorStand" target="_blank"><img src="images/github.png" alt="GitHub" title="GitHub" /></a>
                 <a href="https://www.codingspace.school/" target="_blank"><img src="images/favicon.ico" width=64 height=64 alt="CodingSpace" title="CodingSpace" /></a>
             </center>
         </div>
 
-        <div class="padding underline">
+        <div class="padding underline" style="background-color: #33384e">
             <select id="mcversion">
 				<option value="1.16">Minecraft 1.16 以上</option>
 				<option value="1.14">Minecraft 1.14 &amp; 1.15</option>
@@ -40,7 +103,7 @@
             </select>
         </div>
 
-        <div class="padding underline">
+        <div class="padding underline" style="background-color: #33384e">
             <label><input type="checkbox" name="invisible">隱形</label><br>
             <label><input type="checkbox" name="invulnerable">無敵</label><br>
             <label><input type="checkbox" name="persistencerequired">PersistenceRequired</label><br>
@@ -54,7 +117,7 @@
 			</div>
         </div>
 
-        <div class="padding underline">
+        <div class="padding underline" style="background-color: #33384e">
             <table class="rotations">
                 <tr>
                     <td>旋轉角度:</td>
@@ -103,7 +166,7 @@
             </div>
         </div>
 
-        <div class="padding underline">
+        <div class="padding underline" style="background-color: #33384e">
             <label><input type="checkbox" name="useequipment" checked>開啟裝備欄</label><br>
             <div id="customequipment">
                 <p>
@@ -178,7 +241,7 @@
             </div>
         </div>
 
-        <div class="padding underline">
+        <div class="padding underline" style="background-color: #33384e">
             <input type="text" name="customname" id="customname" placeholder="自定義名稱">
             <label><input type="checkbox" name="showcustomname">顯示自定義名稱</label><br>
 			<div id="namecustomization">
@@ -213,8 +276,7 @@
 			</div>
         </div>
 
-        <div class="padding">
-            <!-- THANK YOU to reddit user Oozebull for this part. -->
+        <div class="padding" style="background-color: #33384e">
             <label><input type="checkbox" id="slashgive" name="slashgive">使用Give給予</label>
             <label><input type="checkbox" name="usedisabledslots">鎖定裝備欄</label>
             <div id="disabledslots">
@@ -258,7 +320,7 @@
             </div>
         </div>
 
-        <div class="code">
+        <div class="code" style="background-color: #33384e">
             <div id="code-copy-hint">點擊複製</div>
             <div id="code"></div>
         </div>
@@ -269,7 +331,8 @@
 
     </div>
 
-    <div class="right card">
+	<div class="right card">
+    <div class="padding underline" style="background-color: #33384e">
         <span style="cursor: pointer;" onclick="javascript:$('#saveandload').slideToggle();">
             + 儲存與讀取
         </span>	
@@ -296,11 +359,10 @@
         </div>
     </div>
 
-    <div class="right card">
+    <div class="padding underline" style="background-color: #33384e">
         <span style="cursor: pointer;" onclick="javascript:$('#getcommandblock').slideToggle();">
             + 取得指令方塊
         </span>	
-        <br>
         <div id="getcommandblock">
             <div class="padding">
                 如果指令超過256個字元 (1.11之前為100個字元)， 需要使用 <b><i>指令方塊</i></b> 來執行。 使用以下指令可以取得指令方塊：
@@ -311,7 +373,7 @@
         </div>
     </div>
 
-    <div class="right card">
+    <div class="padding underline" style="background-color: #33384e">
         <span class="" style="cursor: pointer;" onclick="javascript:$('#troubleshooting').slideToggle();">
         + 故障排除
         </span>
@@ -323,7 +385,7 @@
         </div>
     </div>
 	
-	<div class="right card">
+	<div class="padding underline" style="background-color: #33384e">
         <span class="" style="cursor: pointer;" onclick="javascript:$('#infomation').slideToggle();">
         + 其他資訊
         </span>
@@ -336,5 +398,8 @@
             </p>
         </div>
     </div>
+	</div>
+
+
 </body>
 </html>
