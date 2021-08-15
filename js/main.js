@@ -158,6 +158,11 @@ $(document).ready(function(){
 		$("#code").selectAndCopyText();
 	});
 	
+	helmetList = $("#list-helmet").find("option");
+	chestplateList = $("#list-chestplate").find("option");
+	leggingsList = $("#list-leggings").find("option");
+	bootsList = $("#list-shoes").find("option");
+	
 	handleInput();
 	
 	//Stuff to handle and update input
@@ -212,11 +217,6 @@ $(document).ready(function(){
             handleInput();
         }
 	});
-	
-	helmetList = $("#list-helmet").find("option");
-	chestplateList = $("#list-chestplate").find("option");
-	leggingsList = $("#list-leggings").find("option");
-	bootsList = $("#list-shoes").find("option");
 
 });
 
